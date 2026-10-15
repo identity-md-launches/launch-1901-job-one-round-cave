@@ -1,0 +1,66 @@
+{
+  "source": "test_deadline_sentry",
+  "target": "deadline_sentry",
+  "reachable": true,
+  "distance": 1,
+  "import_path": [
+    "test_deadline_sentry",
+    "deadline_sentry"
+  ],
+  "edges": [
+    {
+      "from": "test_deadline_sentry",
+      "to": "deadline_sentry",
+      "sites": [
+        {
+          "path": "test_deadline_sentry.py",
+          "line": 10,
+          "target": "deadline_sentry"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "cycles": [],
+  "dynamic_imports": [],
+  "summary": {
+    "module_count": 2,
+    "local_edge_count": 1,
+    "cycle_count": 0,
+    "issue_count": 0,
+    "entrypoints": [
+      "deadline_sentry",
+      "test_deadline_sentry"
+    ]
+  },
+  "scope": "Shortest route in the explicit static local-import graph only. Unreachable does not prove runtime isolation. Conditional imports, dynamic loading, implicit package initialization and external imports are not simulated. Review retained issues, dynamic calls and hashes. Equal endpoints have a zero-edge route, not evidence of a cycle.",
+  "status": "complete",
+  "inventory": {
+    "files": 2,
+    "bytes": 7132,
+    "entries": 3,
+    "skipped_symlinks": 0,
+    "skipped_directories": 0,
+    "skipped_nonregular": 0,
+    "manifest": [
+      {
+        "path": "deadline_sentry.py",
+        "bytes": 3397,
+        "sha256": "454f100a6be14802d26cbae5cd1f63f0bb52864a8c531bd3b147c48471f8f524"
+      },
+      {
+        "path": "test_deadline_sentry.py",
+        "bytes": 3735,
+        "sha256": "57eab0445e8dd4654ff3e4b0440004def1f2b9ce7a03aedfb03d8842983e3518"
+      }
+    ]
+  },
+  "limits": {
+    "files": 1000,
+    "file_bytes": 262144,
+    "total_bytes": 8388608,
+    "entries": 20000,
+    "depth": 64
+  },
+  "collection_scope": "Complete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees."
+}

@@ -1,0 +1,99 @@
+{
+  "source": "main",
+  "target": "pkg.helper",
+  "reachable": true,
+  "distance": 2,
+  "import_path": [
+    "main",
+    "pkg.engine",
+    "pkg.helper"
+  ],
+  "edges": [
+    {
+      "from": "main",
+      "to": "pkg.engine",
+      "sites": [
+        {
+          "path": "main.py",
+          "line": 1,
+          "target": "pkg import engine"
+        }
+      ]
+    },
+    {
+      "from": "pkg.engine",
+      "to": "pkg.helper",
+      "sites": [
+        {
+          "path": "pkg/engine.py",
+          "line": 1,
+          "target": ". import helper"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "type": "unresolved_local",
+      "path": "pkg/engine.py",
+      "line": 2,
+      "target": ".missing import value"
+    }
+  ],
+  "cycles": [
+    [
+      "pkg.engine",
+      "pkg.helper"
+    ]
+  ],
+  "dynamic_imports": [],
+  "summary": {
+    "module_count": 4,
+    "local_edge_count": 3,
+    "cycle_count": 1,
+    "issue_count": 1,
+    "entrypoints": [
+      "main"
+    ]
+  },
+  "scope": "Shortest route in the explicit static local-import graph only. Unreachable does not prove runtime isolation. Conditional imports, dynamic loading, implicit package initialization and external imports are not simulated. Review retained issues, dynamic calls and hashes. Equal endpoints have a zero-edge route, not evidence of a cycle.",
+  "status": "complete",
+  "inventory": {
+    "files": 4,
+    "bytes": 286,
+    "entries": 5,
+    "skipped_symlinks": 0,
+    "skipped_directories": 0,
+    "skipped_nonregular": 0,
+    "manifest": [
+      {
+        "path": "main.py",
+        "bytes": 77,
+        "sha256": "027de87a404f210725ee83709f4d578dfc42e07a018c24a366d6963ba6a0a332"
+      },
+      {
+        "path": "pkg/__init__.py",
+        "bytes": 65,
+        "sha256": "09ce07fbcdfd35d76002e657e6a46239b31001d5c67b7f90e04909869c102ad5"
+      },
+      {
+        "path": "pkg/engine.py",
+        "bytes": 88,
+        "sha256": "42c27749f8d15f04c51c63ce3f501ee4844dcd71f325c45a98dca1922fc4f9e0"
+      },
+      {
+        "path": "pkg/helper.py",
+        "bytes": 56,
+        "sha256": "a1281d6ae9cb33d7b377a5aec839510d7240e75087a426442d29de75c1eecd1c"
+      }
+    ]
+  },
+  "limits": {
+    "files": 1000,
+    "file_bytes": 262144,
+    "total_bytes": 8388608,
+    "entries": 20000,
+    "depth": 64
+  },
+  "collection_scope": "Complete means collection finished within the stated budgets, not that runtime imports are known. Hidden and conventional dependency directories, symlinks and nonregular files are skipped. Explicit AST imports only; parse issues and dynamic calls remain visible. Use a stable source tree. These are input-size limits, not CPU, memory or elapsed-time guarantees."
+}

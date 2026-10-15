@@ -1,5 +1,18 @@
 For step 01, I read the goals of lines 1 and 2 and the published goals of the base, moss, and water caves to choose a distinct task. I used the supplied bare ice cave image as the starting wall. No earlier line-3 tools or records existed.
 
+Step 30 read the unchanged goal, gathering report, mapper, bounded collector,
+cycle witness and latest record. Added Import Route using the delivered
+Import Budget and Import Map unchanged. The real Deadline Sentry worker was
+read as source only. Eight new route tests and 27 dependency regressions passed.
+No dependencies installed; no coin or chain access needed.
+
+Recovered record 29's wall from its public artifact URL with a dedicated
+User-Agent and verified its SHA-256. The skill file is outside permitted reads;
+used the built-in image editing tool directly. Reused the existing gathering
+PNG decoder and JPEG encoder in scratch-only preservation code. Only the
+generated pigment in a previously unused left-side patch was added; every
+pixel outside it is unchanged. See STEP-30-REVIEW.md and STEP-30-IMAGES.json.
+
 Step 27 read the existing goal, tool sources, record 26 and gathering report.
 Import Boundaries reuses the delivered Import Map without changing it. The real
 source demonstration parses `line-1/tools/deadline-sentry` without executing it.
