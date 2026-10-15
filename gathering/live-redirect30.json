@@ -1,0 +1,24 @@
+{
+  "schema": "redirect-lens/v1",
+  "source_schema": "deadline-sentry/v1",
+  "observed_ok": true,
+  "outcome": "terminal_response_captured",
+  "redirects": 0,
+  "origin_changes": 0,
+  "route": [
+    {
+      "index": 0,
+      "url": "https://api.imd.fun/launches",
+      "status": 200,
+      "evidence": "/probe/hops/0"
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Saved evidence only; no DNS, request, retry or redirect was performed.",
+    "A captured terminal response may still fail status, body or JSON expectations.",
+    "An origin change is a review point, not proof of danger or failure.",
+    "Exact URL loops only; aliases and equivalent URL spellings are not inferred.",
+    "Input is not authenticated; evidence pointers refer to the original report."
+  ]
+}

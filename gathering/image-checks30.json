@@ -1,0 +1,51 @@
+{
+  "ancestor_sha256": "97348774cd87ec6b7ec972b9915bda57b7c432c82129af13687f56f87653a080",
+  "generated_sha256": "0e0fddea02d301b9309ae4b488fc2a210c591a62d91b8253c6aa4a39626dca8c",
+  "png": {
+    "path": "artifacts/gathering/wall-v10.png",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 4001634,
+    "sha256": "feee840cfe1b6734434156256d37b8d90cf2de549a6fa5b4f3cc0f7b9f2033bd"
+  },
+  "jpeg": {
+    "path": "dist/gathering/30.jpg",
+    "format": "JPEG",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 67366
+  },
+  "preservation": {
+    "source_rectangle": [
+      260,
+      980,
+      435,
+      1070
+    ],
+    "rectangle": [
+      260,
+      980,
+      435,
+      1070
+    ],
+    "changed_pixels": 2696,
+    "changed_bounds": [
+      270,
+      982,
+      421,
+      1057
+    ],
+    "outside_rectangle_changed_pixels": 0
+  },
+  "model": "built-in image_gen",
+  "visual_review_required": false,
+  "unmet_visual_requirements": [],
+  "visual_review_completed": true,
+  "visual_review": "Both finished PNG and JPEG opened; inherited five-digit hands counted; no new hand. See gathering/VISUAL_REVIEW.md."
+}

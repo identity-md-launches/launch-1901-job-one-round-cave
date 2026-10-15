@@ -1,18 +1,14 @@
-# Gathering 29 — The Witness Trail
+# Gathering 30 — The Measured Crossing
 
-All four lines checked; their latest pieces tried; useful cycle evidence joined
-to exact CSV review in [shared work](../shared/import-drift/CYCLE_REVIEW.md).
+Checked all four lines and joined Line 2's change policy to Line 3's import snapshots. [Import Change Gate](../shared/import-drift/CHANGE_GATE.md) retains every difference while checking explicit row/column allowances.
 
 ```sh
-python3 -B shared/import-drift/cycle_csv.py snapshot line-3/tools/import-map/examples
+python3 -B shared/import-drift/import_gate.py shared/import-drift/observed-sentry.csv shared/import-drift/observed-sentry23.csv --max-changed 1 --allow-change external_imports
 ```
 
-This completes with exit 1: two directed-cycle rows and an existing unresolved
-import warning. CSV is stdout; full collection and source evidence is stderr.
-The [report](REPORT.md) gives each line's results, limits and scope decisions.
-[COINS.md](COINS.md) says none.
+Observed: accepted, one changed test module, exit 0; the files remain different. Without allowances it rejects the change. [REPORT.md](REPORT.md) covers each line's results, limitations and scope. [COINS.md](COINS.md) says none.
 
-Reproduce offline from the repository root with Python 3.10+ (observed 3.12.3):
+Reproduce offline from the repository root (Python 3.10+, observed 3.12.3):
 
 ```sh
 python3 -B gathering/run_checks.py
@@ -20,31 +16,10 @@ python3 -B gathering/try_tools.py
 python3 -B gathering/check_delivery.py
 ```
 
-303 line tests, 64 shared tests, eight gathering checks and 62 demonstrations
-pass. Tests run from verified scratch copies to preserve the line folders.
-Four fresh public HTTP/TLS invocations also passed; their saved evidence is in
-`live-probes29.json`. These observations carry no independent certification.
+360 line tests, 73 shared tests, eight gathering checks and 77 demonstrations pass. Suites run from verified scratch copies to preserve line folders. Four fresh public HTTP/TLS invocations passed; Retry Lens found no Retry-After header in this response. Evidence is in `live-probes30.json`. These checks carry no independent authority.
 
-The [gallery](../dist/index.html) is one self-contained 71,803-byte page of all
-145 records: 45 embedded painting previews and 100 untouched reserved slots.
-Full images link to the artifact service; titles link to JSON records. Historic
-miniatures were recompressed in memory to fit the size limit; source paintings
-and adjacent JPEGs were untouched. New miniatures use the supplied current walls.
-Rebuild with `python3 -B gathering/build_gallery.py`; the complete JPEG codec is
-vendored and Node is the only additional runtime. No network is needed to build.
+The [gallery](../dist/index.html) contains 150 records and 50 embedded painting previews in one 79,061-byte page. Rebuild offline with `python3 -B gathering/build_gallery.py`; Node and the already vendored JPEG codec are used only for previews. Missing previews come from committed adjacent JPEGs, requiring no network or artifact mounts.
 
-The required `artifacts/gathering/wall-v9.png` and continuation `wall.png` are
-identical **1254 × 1254 RGB PNGs**, 4,001,995 bytes. The record is
-`dist/gathering/29.json`; its **512 × 512 JPEG** is 67,332 bytes. The small new
-mark is a closed charcoal trail joining three ochre pebbles on previously bare
-rock. Built-in image generation supplied the pigment; only the bounded patch
-was composited onto the ancestor. Exactly 2,397 pixels changed, with none
-outside that patch. The two inherited hands each have five digits; no hand was
-added. [Visual review](VISUAL_REVIEW.md) records no observed unmet requirement.
+Required `artifacts/gathering/wall-v10.png` and continuation `wall.png` are identical **1254 × 1254 RGB PNGs**. Record: `dist/gathering/30.json`; preview: **512 × 512 JPEG**, 67,366 bytes. The new mark is a worn ochre pebble trail between charcoal uprights on lower-left bare rock. Exactly 2,696 pixels changed, all inside the reviewed patch. Both inherited hands have five digits; none was added. [Visual review](VISUAL_REVIEW.md) found no unmet requirement; the small mark loses detail in gallery miniatures.
 
-`finish_wall29.js` is a one-time preservation export requiring the verified
-ancestor and model output, not a routine rebuild. Image dimensions, hashes,
-formats and preservation bounds are retained in `image-checks29.json`.
-Required PNGs stay untracked for the uploader. No line folder or configuration
-changed. No wallet, secret, transaction, payment, publication or deployment was
-used.
+`finish_wall30.js` is a one-time preservation export requiring the ancestor and generated candidate, not a routine rebuild. `image-checks30.json` records formats, dimensions, hashes and bounds. PNGs stay untracked for the uploader. All line folders/records and configuration are unchanged. No dependency was installed. Nothing was signed, paid, submitted or deployed.

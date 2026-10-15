@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>CSV reconciliation review</title>
+<style>
+body{font:16px system-ui,sans-serif;line-height:1.5;margin:2rem;max-width:100rem;color:#242018;background:#faf7f0}
+h1,h2,h3{line-height:1.2}table{border-collapse:collapse;width:100%;margin:1rem 0;display:block;overflow:auto}
+th,td{border:1px solid #b8afa0;padding:.5rem;text-align:left;vertical-align:top}th{background:#e8e0d0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font-size:.85rem}summary{cursor:pointer;font-weight:bold}
+.notice{border-left:5px solid #8a451c;padding:1rem;background:#eee4d4}details{margin:1rem 0}
+</style></head><body>
+<h1>CSV reconciliation: Different</h1>
+<p>Exact strings, stable keys, no automatic normalization or duplicate pairing. Entire comparison shown; nothing truncated.</p>
+<section aria-label="Import change policy"><h2>Import change policy: ACCEPTED</h2><p>Acceptance means only that these saved CSV differences fit the stated limits. It does not establish source equality, runtime isolation or absence of scan warnings. Preserve and review each bounded snapshot&#x27;s JSON evidence, including skipped files, hashes, cycles and issues. Use stable input files. No patch is applied and nothing is sent.</p><h3>Effective limits</h3><pre>{&quot;allowed_changed_columns&quot;: [&quot;external_imports&quot;], &quot;ambiguous_keys_allowed&quot;: false, &quot;maximum_rows&quot;: {&quot;added&quot;: 0, &quot;changed&quot;: 1, &quot;removed&quot;: 0}, &quot;schema_changes_allowed&quot;: false}</pre><h3>Violations</h3><pre>[]</pre></section><h2>Comparison settings</h2>
+<table><thead><tr><th scope="col">Setting</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td><pre>&quot;Key columns&quot;</pre></td><td><pre>[&quot;module&quot;]</pre></td></tr>
+<tr><td><pre>&quot;Ignored columns&quot;</pre></td><td><pre>[]</pre></td></tr>
+</tbody></table>
+<h2>Counts</h2>
+<table><thead><tr><th scope="col">Measure</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><td><pre>&quot;before_records&quot;</pre></td><td><pre>2</pre></td></tr>
+<tr><td><pre>&quot;after_records&quot;</pre></td><td><pre>2</pre></td></tr>
+<tr><td><pre>&quot;added&quot;</pre></td><td><pre>0</pre></td></tr>
+<tr><td><pre>&quot;removed&quot;</pre></td><td><pre>0</pre></td></tr>
+<tr><td><pre>&quot;changed&quot;</pre></td><td><pre>1</pre></td></tr>
+<tr><td><pre>&quot;unchanged_on_common_columns&quot;</pre></td><td><pre>1</pre></td></tr>
+<tr><td><pre>&quot;ambiguous_keys&quot;</pre></td><td><pre>0</pre></td></tr>
+</tbody></table>
+<h2>Schema changes</h2>
+<table><thead><tr><th scope="col">Change</th><th scope="col">Columns</th></tr></thead><tbody>
+<tr><td><pre>&quot;added_columns&quot;</pre></td><td><pre>[]</pre></td></tr>
+<tr><td><pre>&quot;removed_columns&quot;</pre></td><td><pre>[]</pre></td></tr>
+</tbody></table>
+<p>Unchanged counts compare only common, nonignored columns. A schema change still makes the datasets different.</p>
+<h2>Added rows</h2>
+<table><thead><tr><th scope="col">Key</th><th scope="col">Source record</th><th scope="col">Values</th></tr></thead><tbody>
+</tbody></table>
+<p>None.</p>
+<h2>Removed rows</h2>
+<table><thead><tr><th scope="col">Key</th><th scope="col">Source record</th><th scope="col">Values</th></tr></thead><tbody>
+</tbody></table>
+<p>None.</p>
+<h2>Changed fields</h2>
+<table><thead><tr><th scope="col">Key</th><th scope="col">Before record</th><th scope="col">After record</th><th scope="col">Column</th><th scope="col">Before</th><th scope="col">After</th></tr></thead><tbody>
+<tr><td><pre>{&quot;module&quot;: &quot;test_sentry&quot;}</pre></td><td><pre>3</pre></td><td><pre>3</pre></td><td><pre>&quot;external_imports&quot;</pre></td><td><pre>&quot;[\&quot;contextlib\&quot;,\&quot;io\&quot;,\&quot;json\&quot;,\&quot;socket\&quot;,\&quot;ssl\&quot;,\&quot;unittest\&quot;]&quot;</pre></td><td><pre>&quot;[\&quot;contextlib\&quot;,\&quot;io\&quot;,\&quot;json\&quot;,\&quot;socket\&quot;,\&quot;ssl\&quot;,\&quot;unittest\&quot;,\&quot;unittest import mock\&quot;]&quot;</pre></td></tr>
+</tbody></table>
+<h2>Ambiguous keys</h2>
+<p>None.</p>
+<h2>Reading this report</h2><p>Values use JSON notation: quotes identify strings, \n marks an embedded newline, and Unicode escapes preserve exact characters. Record numbers count CSV records (header is 1), not physical lines. Row order has no effect on equality. Original unchanged row values are not repeated. This document makes no network requests and contains no scripts.</p></body></html>

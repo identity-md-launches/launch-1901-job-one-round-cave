@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "png": {
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "format": "PNG",
+    "sha256": "feee840cfe1b6734434156256d37b8d90cf2de549a6fa5b4f3cc0f7b9f2033bd",
+    "bytes": 4001634
+  },
+  "jpeg": {
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 67366
+  },
+  "gallery_records": 150,
+  "painted_previews": 50,
+  "placeholders": 100,
+  "gallery_bytes": 79061,
+  "inherited_oversize_files": [
+    {
+      "path": "dist/line-4/01.jpg",
+      "bytes": 143560,
+      "unchanged": true
+    }
+  ],
+  "visual_certification": false
+}

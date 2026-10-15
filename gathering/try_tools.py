@@ -11,7 +11,7 @@ import sys
 
 
 def main():
-    scratch = Path('test/scratch/gathering29')
+    scratch = Path('test/scratch/gathering30')
     scratch.mkdir(parents=True, exist_ok=True)
     results = []
 
@@ -182,9 +182,48 @@ def main():
         ['snapshot', 'line-1/tools/deadline-sentry'])
     run('Shared cycle budget refuses partial CSV', 'shared/import-drift/cycle_csv.py',
         ['snapshot', 'line-3/tools/import-map/examples', '--max-files', '1'], 2)
+    run('Retry Lens retained live capture', 'line-1/tools/retry-lens/retry_lens.py',
+        ['line-1/tools/retry-lens/observed-live.json'])
+    run('Retry Lens synthetic 503 hint', 'line-1/tools/retry-lens/retry_lens.py',
+        ['line-1/tools/retry-lens/demo-503.json'])
+    run('Retry Lens historical report is not captured', 'line-1/tools/retry-lens/retry_lens.py',
+        ['line-1/tools/endpoint-sentry/live-success.json'])
+    gate_pair = ['line-2/tools/csv-gate/demo-before.csv',
+                 'line-2/tools/csv-gate/demo-after.csv', '--key', 'item']
+    run('CSV Change Gate default rejection', 'line-2/tools/csv-gate/gate.py', gate_pair, 1)
+    run('CSV Change Gate explicit allowance', 'line-2/tools/csv-gate/gate.py',
+        gate_pair + ['--max-added', '1', '--max-changed', '1', '--allow-change', 'quantity'])
+    run('Import Route real worker', 'line-3/tools/import-route/route.py',
+        ['line-1/tools/deadline-sentry', 'test_deadline_sentry', 'deadline_sentry', '--json', '--strict'])
+    run('Import Route fixture with warnings', 'line-3/tools/import-route/route.py',
+        ['line-3/tools/import-map/examples', 'main', 'pkg.helper', '--json', '--strict'], 1)
+    run('Import Route unknown module refused', 'line-3/tools/import-route/route.py',
+        ['line-1/tools/deadline-sentry', 'missing', 'deadline_sentry', '--json'], 2)
+    run('Import Route input budget refused', 'line-3/tools/import-route/route.py',
+        ['line-1/tools/deadline-sentry', 'test_deadline_sentry', 'deadline_sentry',
+         '--json', '--max-files', '1'], 2)
+    param = {'type': 'uint8'}
+    for _ in range(33):
+        param = {'type': 'tuple', 'components': [param]}
+    deep_abi = scratch / 'deep-abi.json'
+    deep_abi.write_text(json.dumps([{'type': 'function', 'name': 'f', 'inputs': [param]}]))
+    run('ABI excessive tuple nesting refused', abi,
+        ['encode', '--abi', str(deep_abi), '--function', 'f', '--args', '[]'], 2)
+    run('Shared ABI excessive tuple nesting refused', 'shared/token-read-plan/abi_workbench.py',
+        ['encode', '--abi', str(deep_abi), '--function', 'f', '--args', '[]'], 2)
+    import_pair = [import_base, 'shared/import-drift/observed-sentry23.csv']
+    run('Import Change Gate historical dependency default refusal',
+        'shared/import-drift/import_gate.py', import_pair, 1)
+    run('Import Change Gate historical dependency allowance',
+        'shared/import-drift/import_gate.py',
+        import_pair + ['--max-changed', '1', '--allow-change', 'external_imports'])
+    run('Import Change Gate full offline HTML', 'shared/import-drift/import_gate.py',
+        import_pair + ['--format', 'html'], 1, html=True)
+    run('Import Change Gate fresh bounded snapshot unchanged', 'shared/import-drift/import_gate.py',
+        [str(bounded_path), str(bounded_path)])
     report = {'ok': all(item['passed'] for item in results), 'results': results,
               'token_historical_csv_byte_identical': True}
-    Path('gathering/integration-checks29.json').write_text(json.dumps(report, indent=2) + '\n')
+    Path('gathering/integration-checks30.json').write_text(json.dumps(report, separators=(',', ':')) + '\n')
     print(json.dumps({'ok': report['ok'], 'checks': len(results),
                       'failed': [r['name'] for r in results if not r['passed']]}, indent=2))
     return 0 if report['ok'] else 1

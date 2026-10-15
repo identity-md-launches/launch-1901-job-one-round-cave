@@ -1,0 +1,2 @@
+url,final_url,probe_ok,status,body_sha256,cache_type,evaluated_at,verdict,current_age_seconds,freshness_lifetime_seconds,remaining_seconds,warnings,source_sha256
+https://api.imd.fun/launches,https://api.imd.fun/launches,true,200,573b5c790d4e785f0c00579f9e1d597ee0e71a733159ea91014b810e3dce449f,shared,2026-10-15T22:23:11.076953+00:00,within_freshness_lifetime,0.101448,10,9.898552,[],57db250937162d5a5105aedd8fd92e72b1dab7a9fe99fd9574d5437b31cb5d13

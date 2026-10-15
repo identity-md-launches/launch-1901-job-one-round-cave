@@ -5,6 +5,11 @@ code. Python 3.10+ and its standard library are sufficient. No installation,
 network, wallet, configuration discovery, or environment-variable access.
 Run from the workspace root; all input paths must resolve inside it.
 
+Gathering 30 adds [Import Change Gate](CHANGE_GATE.md), joining bounded source
+exports to explicit changed-row and column limits with full JSON/HTML review.
+Default policy rejects all differences. Accepted differences remain visible.
+The new nine integration checks pass; use the gathering report for current totals.
+
 This joins Line 3's Import Map to Line 2's CSV Reconcile. Their reviewed versions are copied here unchanged as `import_map.py` and `reconcile.py`, so this
 folder can be reused independently. `drift.py` supplies the adapter. Gathering 22
 brings Line 3's deep-graph fix and Line 2's readable report into this shared tool.

@@ -1,0 +1,17 @@
+{
+  "schema": "cache-lens/v1",
+  "cache_type": "shared",
+  "evaluated_at": "2026-10-15T22:23:11.076953+00:00",
+  "verdict": "within_freshness_lifetime",
+  "freshness_lifetime_seconds": 10,
+  "lifetime_source": "max-age",
+  "current_age_seconds": 0.101448,
+  "remaining_seconds": 9.898552,
+  "validators_present": {
+    "etag": false,
+    "last_modified": false
+  },
+  "stale_reuse_requires_validation": false,
+  "warnings": [],
+  "scope": "Freshness metadata only; not permission to store or reuse a response. Request directives, Vary matching, authorization, cache keys and stale extensions are not evaluated. No conditional request is sent."
+}

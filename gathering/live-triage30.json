@@ -1,0 +1,12 @@
+{
+  "schema": "probe-triage/v1",
+  "source_schema": "deadline-sentry/v1",
+  "observed_ok": true,
+  "assessment": "checks_passed",
+  "findings": [],
+  "limits": [
+    "Saved evidence only; no new request or retry was made.",
+    "A passing observation is not an availability, freshness or root-cause guarantee.",
+    "Evidence pointers refer to the original input document."
+  ]
+}

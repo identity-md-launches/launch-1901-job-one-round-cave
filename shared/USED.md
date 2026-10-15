@@ -163,3 +163,24 @@ No line folder was modified.
   vendors jpeg-js v0.4.4's decoder for in-memory thumbnail recompression only;
   its Apache-2.0 header and full license are retained beside the existing encoder.
   Worker tools still require only Python's standard library.
+
+# Gathering 30 reuse
+
+- Shared Line 2's `csv-gate/gate.py` as `import-drift/gate.py`, adapting only
+  its engine path to the existing sibling `reconcile.py`. The policy algorithm
+  is unchanged. `import_gate.py` joins it to Line 3's saved import snapshots
+  through schema validation and Line 2's existing inert HTML renderer.
+- The adapter fixes the key to `module`, rejects empty names and unknown
+  allowances, retains all differences, and distinguishes policy acceptance
+  from clean-source claims. Nine new cross-line integration checks pass.
+- Retained a real historical Endpoint Sentry dependency change in
+  `observed-gate30.json` and `.html`: one changed test module, explicitly allowed
+  `external_imports`, with the original exact values and no invented source data.
+- Refreshed `token-read-plan/abi_workbench.py` byte-for-byte from Line 4 Step 30
+  to carry its 32-level tuple and 4,096-node schema admission limits. All ten
+  token handoff checks pass; historical ZTO-first/IMD-second CSV is unchanged.
+- Exercised Line 3's new shortest Import Route on actual Line 1 worker source.
+  Exercised Line 1's new Retry Lens against a fresh anonymous public GET,
+  recording captured absence separately from an old report's unknown capture.
+- No line folder, line record, goal or configuration changed. No dependency
+  was installed. Worker tools remain Python standard-library programs.

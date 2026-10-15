@@ -68,22 +68,21 @@ def main():
                 continue
             painted += 1
             if key not in previews:
-                # Current inputs are supplied PNGs. Older previews are retained
-                # from the existing gallery; a missing historical preview fails.
-                version = {'23': 'v3', '24': 'v4', '25': 'v5', '26': 'v6', '27': 'v7', '28': 'v8', '29': 'v9'}.get(path.stem)
-                source = Path('artifacts', wall, f'wall-{version}.png') if version else None
-                if path.stem == '29' and wall != 'gathering':
-                    source = Path('.imd/reads/artifacts', 'wall' + wall[-1])
-                if source is None or not source.is_file():
-                    raise ValueError(f'missing embedded historical preview: {key}')
-                jpeg = subprocess.run(['node', 'gathering/thumbnail.js', str(source), '32', '15'],
-                                      capture_output=True, check=True).stdout
-                previews[key] = 'data:image/jpeg;base64,' + base64.b64encode(jpeg).decode('ascii')
+                # Adjacent record JPEGs are delivered in source, so a rebuild
+                # also works offline without the daemon's artifact mount.
+                source = path.with_suffix('.jpg')
+                if not source.is_file():
+                    raise ValueError(f'missing record preview: {key}')
+                preview = 'data:image/jpeg;base64,' + base64.b64encode(source.read_bytes()).decode('ascii')
+                previews[key] = json.loads(subprocess.run(
+                    ['node', 'gathering/compact_previews.js'],
+                    input=json.dumps({key: preview}), text=True,
+                    capture_output=True, check=True).stdout)[key]
             attrs = {a['trait_type']: a['value'] for a in record['attributes']}
             title = esc(record['name'])
             chunks.append(f'<article data-record="{key}"><a href="{image}"><img src="{previews[key]}" width="96" height="96" alt="{title}"></a><a href="{key}">{path.stem} · {title}</a></article>')
         chunks.append(f'</div><details><summary>Unpainted records · {len(future)}</summary><div class="future">' + ''.join(future) + '</div></details></section>')
-    chunks.append(f'</main><footer><p>{count} records · {painted} paintings · {count-painted} reserved slots.</p><p>Embedded previews work offline. Full walls open the artifact service. Records link to metadata; adjacent JPEGs are 512 px.</p><p><a href="../gathering/REPORT.md">Gathering report</a> · <a href="goals.json">Four goals</a> · <a href="../shared/import-drift/README.md">Shared import review</a></p></footer></body></html>')
+    chunks.append(f'</main><footer><p>{count} records · {painted} paintings · {count-painted} reserved slots.</p><p>Embedded previews work offline. Full walls open the artifact service. Records link to metadata; adjacent JPEGs are 512 px.</p><p><a href="../gathering/REPORT.md">Gathering report</a> · <a href="goals.json">Four goals</a> · <a href="../shared/import-drift/CHANGE_GATE.md">Shared import change gate</a></p></footer></body></html>')
     result = '\n'.join(chunks)
     if len(result.encode()) > 100000:
         raise ValueError(f'gallery exceeds 100 KB: {len(result.encode())} bytes')

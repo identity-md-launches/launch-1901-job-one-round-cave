@@ -1,0 +1,58 @@
+{
+  "accepted": true,
+  "comparison": {
+    "added": [],
+    "ambiguous": [],
+    "changed": [
+      {
+        "after_record": 3,
+        "before_record": 3,
+        "fields": {
+          "external_imports": {
+            "after": "[\"contextlib\",\"io\",\"json\",\"socket\",\"ssl\",\"unittest\",\"unittest import mock\"]",
+            "before": "[\"contextlib\",\"io\",\"json\",\"socket\",\"ssl\",\"unittest\"]"
+          }
+        },
+        "key": {
+          "module": "test_sentry"
+        }
+      }
+    ],
+    "complete": true,
+    "equal": false,
+    "format": "csv-reconcile/v1",
+    "ignored_columns": [],
+    "keys": [
+      "module"
+    ],
+    "removed": [],
+    "schema": {
+      "added_columns": [],
+      "removed_columns": []
+    },
+    "summary": {
+      "added": 0,
+      "after_records": 2,
+      "ambiguous_keys": 0,
+      "before_records": 2,
+      "changed": 1,
+      "removed": 0,
+      "unchanged_on_common_columns": 1
+    }
+  },
+  "format": "import-change-gate/v1",
+  "policy": {
+    "allowed_changed_columns": [
+      "external_imports"
+    ],
+    "ambiguous_keys_allowed": false,
+    "maximum_rows": {
+      "added": 0,
+      "changed": 1,
+      "removed": 0
+    },
+    "schema_changes_allowed": false
+  },
+  "scope": "Acceptance means only that these saved CSV differences fit the stated limits. It does not establish source equality, runtime isolation or absence of scan warnings. Preserve and review each bounded snapshot's JSON evidence, including skipped files, hashes, cycles and issues. Use stable input files. No patch is applied and nothing is sent.",
+  "violations": []
+}
