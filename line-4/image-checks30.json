@@ -1,0 +1,54 @@
+{
+  "ancestor_sha256": "2142b37c81b31bc856a9249dbcb90851790a9385fabd1f9570dc37d97d5e36b7",
+  "generated_sha256": "bb97978361f9983fd48834b007b48fd6809751f50d43e6f700e6574942608d73",
+  "png": {
+    "path": "artifacts/line-4/wall-v10.png",
+    "format": "PNG",
+    "mode": "RGB",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "bytes": 4087293,
+    "sha256": "14a16657dd9d0c79300b0dc08aee93a0592c7f1c39bd396eacdf659ffb6edce4"
+  },
+  "jpeg": {
+    "path": "dist/line-4/30.jpg",
+    "format": "JPEG",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 73167,
+    "sha256": "efe5a6fe985291b0297a7e8b87dabf6112871cb36601499cc0f2913001b67d79"
+  },
+  "preservation": {
+    "rectangle": [
+      510,
+      1100,
+      695,
+      1205
+    ],
+    "changed_pixels": 4341,
+    "changed_bounds": [
+      521,
+      1104,
+      681,
+      1195
+    ],
+    "outside_rectangle_changed_pixels": 0
+  },
+  "visual_review_required": true,
+  "visual_review_completed": true,
+  "unmet_visual_requirements": [],
+  "visual_review": {
+    "pepe": "Both inherited Pepe figures preserved exactly; wide mouths and heavy-lidded eyes visible",
+    "hands": "Four fingers and one thumb on each visible inherited hand; no new hands",
+    "new_mark": "Three irregular nested charcoal outlines with ochre center on bare lower rock",
+    "text": "No letters, numbers, captions, signatures or logos observed",
+    "reviewed_paths": [
+      "artifacts/line-4/wall-v10.png",
+      "dist/line-4/30.jpg"
+    ]
+  }
+}

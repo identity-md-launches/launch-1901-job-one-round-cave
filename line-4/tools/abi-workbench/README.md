@@ -13,11 +13,11 @@ From the repository root:
 python3 -B -m unittest discover -s line-4/tools/abi-workbench -v
 ```
 
-This runs 68 regression tests, including the gathering's defect reports,
+This runs 84 regression tests, including the gathering's defect reports,
 all 32 integer widths, malformed output checks, and eight Keccak vectors
 independently obtained using `cast keccak` (Cast is not needed to run the tests).
-All 68 passed locally, including input-boundary, scalar-array, strict-return,
-calldata-inspection and explicit-overload tests. The original demo also passed:
+All 84 passed locally, including input-boundary, scalar-array, strict-return,
+calldata-inspection, explicit-overload and nested-type admission tests. The original demo also passed:
 
 ```sh
 python3 -B line-4/tools/abi-workbench/abi_workbench.py --demo
@@ -202,7 +202,7 @@ functions; it is an offline ABI fixture, not the ABI of an identified deployed
 contract. Replacing the signature with bare `bar` returns exit 2, an ambiguity
 error, and no success output. Nothing is sent to any contract.
 
-Quote signatures in a shell. Spaces, parameter names, return types, tuples,
+Quote signatures in a shell. Spaces, parameter names, return types,
 unsupported types and malformed signatures are rejected. `uint` and `int`
 aliases normalize to 256 bits in both the supplied reference and the ABI,
 including supported arrays. For example, `bar(uint)` selects `bar(uint256)`.
@@ -249,3 +249,45 @@ six new standard-library tests check that layout, inline static tuples, nested
 tuple and array values, malformed offsets, explicit signatures, and CLI
 round-trips. Array-of-tuple inputs and nested arrays are still unsupported.
 No chain connection or dependency is needed.
+
+## Bounded tuple schemas (Pepe 30)
+
+Nested tuples now have explicit admission limits before recursive encoding,
+decoding or canonicalization. Previously, a deeply nested type or function
+reference could raise an uncaught `RecursionError`, and a nested component's
+non-string `name` escaped the top-level parameter validation.
+
+Each input or output parameter tree is limited to 32 nested tuple levels and
+4,096 parameter occurrences in total. A tuple counts as one occurrence, as
+does a scalar or scalar-array parameter; array values retain their separate
+4,096-item limit. The outer function parameter list is not a tuple level.
+Every tuple still has 1 through 256 components. Reusing a Python dictionary
+in multiple places counts each occurrence because its representation expands
+each time. Cyclic Python schemas are refused by the depth limit.
+
+An iterative pass checks the schema before recursive type processing. Nested
+names, when present, must be strings. Explicit signatures enforce the same
+tuple depth, component width and aggregate node budgets, as well as the
+existing 8,192-character reference limit. Unsupported sibling overloads still
+do not block explicit selection of a supported signature. Selected inputs and
+outputs are checked separately; the complete ABI is not required to use only
+the supported type subset.
+
+One command from the repository root demonstrates the new boundaries offline:
+
+```sh
+python3 -B -m unittest discover -s line-4/tools/abi-workbench -p test_type_limits.py -v
+```
+
+Tried locally: all 16 checks pass. They include independently constructed
+32-level static and dynamic byte layouts, the exact 4,096-node boundary,
+1,200-level refusals, shared and cyclic schemas, nested name validation,
+signature admission before opening an ABI file, and clean failures for all
+three CLI commands. Refused CLI inputs exit 2, print a concise error to stderr,
+and emit no success JSON. All 84 tests and the original ZTO demo pass.
+
+These limits deliberately refuse deeper or larger schemas even if an ABI
+implementation with different limits could handle them. They are structural
+limits, not a process-memory or elapsed-time guarantee. Existing byte budgets,
+strict decoding options, unsupported types and offline-only behavior remain
+in effect. No dependency was added.

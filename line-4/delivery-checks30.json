@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "goal_sha256": "67d9897d9590e0e482573e85a900da247c3547fb28eb884cdfc88b7810d769b5",
+  "goal_byte_identical_to_HEAD": true,
+  "old_dist_files_byte_identical": 38,
+  "record_count": 30,
+  "record_shape_and_hash": "pass",
+  "png_dimensions": [
+    1254,
+    1254
+  ],
+  "png_format": "RGB PNG, 8 bit, CRCs valid",
+  "jpeg_dimensions": [
+    512,
+    512
+  ],
+  "jpeg_format": "JPEG",
+  "new_non_artifact_files_under_100000_bytes": true,
+  "changes_inside_allowed_paths": true,
+  "named_outputs_untracked": true,
+  "unmet_visual_requirements": [],
+  "source_changes": [
+    "line-4/USED.md",
+    "line-4/tools/abi-workbench/README.md",
+    "line-4/tools/abi-workbench/abi_workbench.py"
+  ],
+  "new_files": [
+    "dist/line-4/30.jpg",
+    "dist/line-4/30.json",
+    "line-4/README.md",
+    "line-4/checks30.json",
+    "line-4/finish_wall30.js",
+    "line-4/image-checks30.json",
+    "line-4/tools/abi-workbench/test_type_limits.py"
+  ]
+}

@@ -12,14 +12,51 @@ MAX_DATA_BYTES = 1024 * 1024
 MAX_ARGS_BYTES = 1024 * 1024
 MAX_PARAMS = 256
 MAX_FUNCTION_REFERENCE = 8192
+MAX_TUPLE_DEPTH = 32
+MAX_TYPE_NODES = 4096
 
 def check_budget(size, subject):
     if size > MAX_DATA_BYTES:
         raise ValueError(f"{subject} exceeds the {MAX_DATA_BYTES}-byte ABI budget")
 
 def check_params(params):
+    if not isinstance(params, (list, tuple)):
+        raise ValueError('ABI parameters must be an array')
     if len(params) > MAX_PARAMS:
         raise ValueError(f"ABI tuple exceeds {MAX_PARAMS} parameters")
+
+def check_type_tree(params):
+    """Bound expanded parameter occurrences before any recursive type work.
+
+    Count shared Python objects once per occurrence, not once per identity:
+    their canonical text and encoded values expand at every reference. Cyclic
+    Python schemas are refused by the depth limit without recursing into them.
+    Unsupported types on unrelated ABI entries are still allowed by the loader.
+    """
+    check_params(params)
+    pending = [(param, 0) for param in reversed(params)]
+    nodes = 0
+    while pending:
+        param, depth = pending.pop()
+        nodes += 1
+        if nodes > MAX_TYPE_NODES:
+            raise ValueError(f'ABI type tree exceeds {MAX_TYPE_NODES} parameter nodes')
+        if not isinstance(param, dict):
+            raise ValueError('ABI parameter must be an object')
+        if not isinstance(param.get('type'), str) or not param['type']:
+            raise ValueError('ABI parameter type must be a nonempty string')
+        if 'name' in param and not isinstance(param['name'], str):
+            raise ValueError('ABI parameter name must be a string')
+        if param['type'] == 'tuple':
+            if depth >= MAX_TUPLE_DEPTH:
+                raise ValueError(f'ABI tuple nesting exceeds {MAX_TUPLE_DEPTH} levels')
+            components = param.get('components')
+            if not isinstance(components, list):
+                raise ValueError('tuple types require a components array')
+            check_params(components)
+            if not components:
+                raise ValueError('tuple types must have at least one component')
+            pending.extend((component, depth + 1) for component in reversed(components))
 
 def parse_data(text, *, call=False):
     # Check text length before regex matching or allocating decoded bytes.
@@ -85,6 +122,11 @@ def keccak256(data):
     return b''.join(v.to_bytes(8, 'little') for v in a)[:32]
 
 def canonical(param):
+    check_type_tree([param])
+    return _canonical(param)
+
+def _canonical(param):
+    """Canonicalize a tree already admitted by check_type_tree."""
     if not isinstance(param, dict):
         raise ValueError('ABI parameter must be an object')
     t = param.get('type', '')
@@ -96,7 +138,7 @@ def canonical(param):
         # This step supports one-dimensional arrays of static scalar elements.
         if '[' in base or base in ('string', 'bytes') or base == 'tuple':
             raise ValueError(f'unsupported ABI type: {t!r}')
-        base = canonical({'type': base})
+        base = _canonical({'type': base})
         if count:
             if len(count) > 4 or count[0] == '0' or not 1 <= int(count) <= MAX_ARRAY_ITEMS:
                 raise ValueError(f'array length must be 1..{MAX_ARRAY_ITEMS}')
@@ -108,7 +150,7 @@ def canonical(param):
         check_params(components)
         if not components:
             raise ValueError('tuple types must have at least one component')
-        return '(' + ','.join(canonical(component) for component in components) + ')'
+        return '(' + ','.join(_canonical(component) for component in components) + ')'
     if t.startswith('tuple'):
         raise ValueError(f'unsupported ABI type: {t!r}')
     if not re.fullmatch(r'(address|bool|string|bytes|bytes(?:[1-9]|[12][0-9]|3[0-2])|u?int(?:8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)?)', t):
@@ -195,7 +237,7 @@ def encode_value(t, value):
     return word(len(raw)) + raw + b'\0' * ((-len(raw)) % 32)
 
 def encode_tuple(params, values):
-    check_params(params)
+    check_type_tree(params)
     if len(params) != len(values): raise ValueError(f'expected {len(params)} arguments, received {len(values)}')
     types = [canonical(p) for p in params]
     head_size = 32 * sum(head_words(p) for p in params)
@@ -236,7 +278,7 @@ def decode_tuple(params, data, *, strict=False, kind='return', _budget=None, _ch
     Re-encoding also detects aliasing, gaps, reordered/overlapping tails and
     unused suffixes without maintaining a second set of offset rules.
     """
-    check_params(params)
+    check_type_tree(params)
     check_budget(len(data), 'input data')
     subject = 'calldata' if kind == 'call' else 'return data'
     if len(data) % 32: raise ValueError(f'{subject} must be whole 32-byte words')
@@ -345,8 +387,16 @@ def split_reference_types(text):
     parts.append(text[start:])
     return parts
 
-def canonical_reference_type(text):
+def canonical_reference_type(text, _depth=0, _nodes=None):
+    if not isinstance(text, str) or len(text) > MAX_FUNCTION_REFERENCE:
+        raise ValueError(f'type reference must be at most {MAX_FUNCTION_REFERENCE} characters')
+    if _nodes is None: _nodes = [0]
+    _nodes[0] += 1
+    if _nodes[0] > MAX_TYPE_NODES:
+        raise ValueError(f'ABI type tree exceeds {MAX_TYPE_NODES} parameter nodes')
     if text.startswith('('):
+        if _depth >= MAX_TUPLE_DEPTH:
+            raise ValueError(f'ABI tuple nesting exceeds {MAX_TUPLE_DEPTH} levels')
         depth=0; end=None
         for i,char in enumerate(text):
             if char == '(': depth += 1
@@ -358,7 +408,10 @@ def canonical_reference_type(text):
             raise ValueError('tuple signature types cannot have array suffixes')
         inner=text[1:-1]
         if not inner: raise ValueError('tuple signature type must have components')
-        return '('+','.join(canonical_reference_type(t) for t in split_reference_types(inner))+')'
+        components = split_reference_types(inner)
+        check_params(components)
+        return '('+','.join(canonical_reference_type(t, _depth + 1, _nodes)
+                            for t in components)+')'
     if '(' in text or ')' in text:
         raise ValueError('malformed tuple type in function signature')
     return canonical({'type':text})
@@ -382,12 +435,13 @@ def function_reference(reference):
         raise ValueError('malformed function signature')
     types = split_reference_types(reference[start:end])
     check_params(types)
-    signature = name + '(' + ','.join(canonical_reference_type(t) for t in types) + ')'
+    nodes = [0]
+    signature = name + '(' + ','.join(canonical_reference_type(t, _nodes=nodes) for t in types) + ')'
     return name, signature
 
 def input_signature(fn):
     params = fn.get('inputs', [])
-    check_params(params)
+    check_type_tree(params)
     return fn['name'] + '(' + ','.join(canonical(p) for p in params) + ')'
 
 def load_function(path, name):
@@ -424,7 +478,7 @@ def load_function(path, name):
         raise ValueError(f'expected exactly one ABI function matching {name!r}; found {len(matches)}{hint}')
     fn=matches[0]
     check_params(fn.get('inputs', []))
-    check_params(fn.get('outputs', []))
+    check_type_tree(fn.get('outputs', []))
     for param in fn.get('outputs', []):
         canonical(param)
     sig=input_signature(fn)

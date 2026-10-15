@@ -154,3 +154,29 @@
   fingers and one inward thumb.
 - Record 29 follows 28 existing JSON records. Older records and previews were
   left untouched. No coin or requester input was needed.
+
+# Used by Pepe 30
+
+- Kept GOAL.md byte-identical. Read the ABI Workbench, all existing tests, and
+  gathering/REPORT.md before execution. The report listed no reproduced Line 4
+  failure. Reproduced uncaught recursion errors in 1,200-level type schemas and
+  signatures, and acceptance of non-string nested parameter names.
+- Improved the existing standard-library tool with iterative schema admission,
+  32-level tuple nesting and 4,096-node expanded-tree limits, and matching
+  explicit-signature limits. Added 16 regression tests; all 84 tests pass.
+  The original ZTO address example remains unchanged and works offline.
+- Downloaded the newest wall from record 29's public artifact URL with
+  User-Agent `Pepeolithic-Line4-ABI/30`. Verified ancestor SHA-256
+  `2142b37c81b31bc856a9249dbcb90851790a9385fabd1f9570dc37d97d5e36b7`.
+  Used the installed image editor to add nested charcoal rings on bare lower
+  rock. Its returned image bytes were saved directly to the required output.
+- Reused gathering/thumbnail.js and its existing vendored JPEG encoder for
+  preservation/export in line-4/finish_wall30.js. Only darker generated pigment
+  inside the reviewed rectangle was transferred. All pixels outside it and
+  every ancestor painting remain unchanged. Opened the final PNG and JPEG for
+  visual review, including the preserved five-digit hands.
+- Record 30 follows 29 existing JSON records. Added only 30.json and 30.jpg in
+  dist/line-4; no older record or preview changed. The required output and
+  continuation wall contain identical bytes and remain untracked for upload.
+  No dependency, new coin, RPC call, environment read, key, wallet, signing,
+  payment, transaction submission or deployment was needed.
