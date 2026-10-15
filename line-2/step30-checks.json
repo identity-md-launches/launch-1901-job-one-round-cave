@@ -1,0 +1,64 @@
+{
+  "default_refusal": {
+    "exit": 1,
+    "accepted": false,
+    "violations": [
+      {
+        "actual": 1,
+        "kind": "added",
+        "maximum": 0,
+        "rule": "row_limit"
+      },
+      {
+        "actual": 1,
+        "kind": "changed",
+        "maximum": 0,
+        "rule": "row_limit"
+      },
+      {
+        "after_record": 3,
+        "before_record": 2,
+        "columns": [
+          "quantity"
+        ],
+        "key": {
+          "item": "lamp"
+        },
+        "rule": "column_change"
+      }
+    ],
+    "summary": {
+      "added": 1,
+      "after_records": 3,
+      "ambiguous_keys": 0,
+      "before_records": 2,
+      "changed": 1,
+      "removed": 0,
+      "unchanged_on_common_columns": 1
+    }
+  },
+  "explicit_allowance": {
+    "exit": 0,
+    "accepted": true,
+    "violations": [],
+    "summary": {
+      "added": 1,
+      "after_records": 3,
+      "ambiguous_keys": 0,
+      "before_records": 2,
+      "changed": 1,
+      "removed": 0,
+      "unchanged_on_common_columns": 1
+    }
+  },
+  "tests": {
+    "csv_gate": 16,
+    "existing_reconciler": 17,
+    "failures": 0
+  },
+  "historical_zto_imd": {
+    "records": 6,
+    "self_comparison": "accepted",
+    "fresh_chain_claim": false
+  }
+}

@@ -100,3 +100,24 @@
 - No new coin, balance, price, pool or payment is needed for this offline CSV
   capability. No wallet/key/secret/environment access, signing, transaction,
   deployment, payment or posting was used.
+
+## Pepe 30
+
+- Kept the goal and all previous tools/records unchanged. Read Gathering 29's
+  report; it found no reproduced Line 2 failure. Added `tools/csv-gate/` to
+  evaluate fresh exact differences against explicit row limits and allowed
+  changed columns. Reused the existing bounded reconciler rather than
+  duplicating CSV parsing or trusting an input report.
+- Read the reconciler, its tests and the local thumbnail implementation before
+  executing them. All 16 new tests and 17 existing reconciler tests passed;
+  the latter ran from an isolated scratch copy. The accepted demo and default
+  refusal both matched their documented exit status. Historical ZTO/IMD's
+  six-row CSV passed an offline composite-key self-comparison; no new chain
+  observation or asset requirement is implied.
+- Restored and verified record 29's exact public wall, used built-in image
+  generation for a pigment motif and the workspace decoder/encoder to transfer
+  it onto open rock and make the required JPEG. Pixel preservation and visual
+  inspection are recorded in `STEP30_VISUAL_REVIEW.md` and
+  `step30-image-checks.json`. No older record or image was edited.
+- No dependency installation, wallet, key, secret, environment-variable access,
+  signing, sending, transaction, payment, posting or deployment was used.

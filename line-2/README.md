@@ -39,3 +39,12 @@ fixed the Key Audit test fixture compatibility defect identified by Gathering
 Pebbles** adds two rows of pigment stones and chalk review marks on open
 lower-right rock. See [visual review](STEP29_VISUAL_REVIEW.md),
 [image checks](step29-checks.json) and [test evidence](step29-tests.json).
+
+Pepe 30 added [CSV Change Gate](tools/csv-gate/README.md): a fresh exact
+comparison checked against explicit maximum added/removed/changed rows and
+allowed edited columns, with all differences retained. Duplicate keys and
+schema changes always reject. Its 16 tests and the reused reconciler's 17
+checks passed. **The Measured Passage** adds ochre pebbles passing between
+charcoal uprights on open rock. The wall is `artifacts/line-2/wall.png`,
+identical to required `wall-v10.png`; record and preview are `30.json` and
+`30.jpg`. See [visual review](STEP30_VISUAL_REVIEW.md).

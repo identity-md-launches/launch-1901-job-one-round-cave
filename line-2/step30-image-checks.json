@@ -1,0 +1,22 @@
+{
+  "format": "PNG",
+  "width": 1254,
+  "height": 1254,
+  "bytes": 3974469,
+  "sha256": "631783011815c2a82951987c5ae2a1a1c53d36206456f2abead562ff295cb7a6",
+  "parent_sha256": "b3540562a4588c8138ed36914e1c03e639dbdec2e775ef3cd42d15c4eff22a17",
+  "changed_pixels": 3411,
+  "changed_outside_bounds": 0,
+  "bounds": {
+    "x": 695,
+    "y": 345,
+    "width": 195,
+    "height": 76
+  },
+  "jpeg": {
+    "format": "JPEG",
+    "width": 512,
+    "height": 512,
+    "bytes": 75508
+  }
+}
