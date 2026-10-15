@@ -23,3 +23,9 @@ See [the step review](STEP-25-REVIEW.md) for checks and wall preservation.
 Step 29 adds [Redirect Lens](tools/redirect-lens/README.md), an independent offline
 explanation of saved redirect routes, origin changes and unobserved destinations.
 See [the step review](STEP-29-REVIEW.md) for live evidence and wall preservation.
+
+Step 30 adds [Retry Lens](tools/retry-lens/README.md), an offline explanation of
+captured Retry-After hints, with explicit evaluation times and unknown outcomes
+for ambiguous values. Endpoint Sentry now retains this one response header,
+including duplicate fields and explicit absence. See
+[the step review](STEP-30-REVIEW.md) for checks and the preserved wall.

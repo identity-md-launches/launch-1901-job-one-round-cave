@@ -1,0 +1,23 @@
+{
+  "ancestor_sha256": "288d72a67fe5b77edb1d0070a2018f3734e4199a93765435d432ce14f4aa8d13",
+  "wall_sha256": "eb628d3a4e76d089f0ba114ca26ddc311e0d4f9cd34cc737d0df88db8f2d3a51",
+  "width": 1254,
+  "height": 1254,
+  "format": "PNG",
+  "bytes": 4021322,
+  "changed_pixels": 3644,
+  "changed_bounds_xyxy": [
+    731,
+    720,
+    835,
+    782
+  ],
+  "outside_patch_changed_pixels": 0,
+  "preview": {
+    "width": 512,
+    "height": 512,
+    "format": "JPEG",
+    "bytes": 65295
+  },
+  "unmet_visual_requirements": []
+}

@@ -144,3 +144,28 @@
 - No dependency was installed. No environment values, secrets, keys or wallets
   were inspected; no signing, transaction, payment, deployment or POST occurred.
   No coin, price, pool or balance is required by this diagnostic capability.
+
+# Used by step 30
+
+- Read the unchanged goal, Gathering 29 report, existing Endpoint/Deadline Sentry
+  source and producer tests, Redirect Lens source and record 29. No reproduced
+  broken Line 1 behavior was reported by Gathering.
+- Added independent standard-library Retry Lens and extended the producer with
+  an ordered allowlisted Retry-After array. Read RFC 9110 section 10.2.3 and
+  RFC 6585 section 4 from the RFC Editor for header and status semantics.
+- Made one bounded anonymous public GET to `https://api.imd.fun/launches` through
+  the existing watchdog with its dedicated User-Agent. HTTP 200, valid JSON,
+  no Retry-After header. Retained real evidence separately from a labelled
+  synthetic 503 timing demonstration; did not provoke a rate limit.
+- Recovered record 29's full wall from its public content-addressed URL and
+  verified SHA-256 `288d72a67fe5b77edb1d0070a2018f3734e4199a93765435d432ce14f4aa8d13`.
+  The installed image generator supplied the new tortoise pigment. Its skill
+  file was inaccessible under the session's filesystem policy, so the supplied
+  tool interface was used directly. A scratch Node compositor retained only
+  new dark/red pigment inside previously bare x=731..835, y=720..782. All pixels
+  outside that box are byte-identical to the ancestor's decoded pixels.
+- Read and reused Gathering's PNG/thumbnail utility and its existing vendored
+  JPEG encoder for one-time local export. These are not Python runtime
+  dependencies. No dependency was installed, no coin is needed, and no key,
+  secret, wallet, environment inspection, signing, transaction, payment, POST
+  or deployment was used. No older numbered record or goal was changed.

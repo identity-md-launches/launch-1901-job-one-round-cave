@@ -1,0 +1,24 @@
+{
+  "schema": "retry-lens/v1",
+  "source_schema": "deadline-sentry/v1",
+  "observed_ok": true,
+  "responses": [
+    {
+      "evidence": "/probe/hops/0",
+      "status": 200,
+      "context": "other_response",
+      "header_evidence": "/probe/hops/0/retry_after",
+      "outcome": "absent"
+    }
+  ],
+  "limits": [
+    "Saved header hints only; no network, waiting, scheduling or retries.",
+    "An elapsed hint does not establish health or permission to retry.",
+    "Delay-seconds start at recorded receipt; HTTP dates use the local recorded clock.",
+    "Clock skew and transit/cache age are not corrected or inferred.",
+    "Only IMF-fixdate dates are supported; malformed/obsolete values remain unknown.",
+    "Old reports without retry_after cannot establish header absence.",
+    "Status context alone does not establish the cause or scope of a failure.",
+    "Reports are unauthenticated; only fields relevant to this analysis are validated."
+  ]
+}

@@ -72,6 +72,18 @@ class SentryTests(unittest.TestCase):
         self.assertFalse(r['ok'])
         self.assertEqual(r['checks'][0]['actual'], 503)
 
+    def test_retry_after_capture_distinguishes_absent_and_duplicates(self):
+        r = self.run_probe([Response(429, headers={'Retry-After': '12',
+                                                 'Set-Cookie': 'private'})])
+        self.assertEqual(r['hops'][0]['retry_after'], ['12'])
+        self.assertFalse(r['ok'])
+        self.assertNotIn('private', json.dumps(r))
+        self.assertEqual(self.run_probe([Response()])['hops'][0]['retry_after'], [])
+        response = Response(503)
+        response.getheaders = lambda: [('Retry-After', '5'), ('retry-after', '8')]
+        r = self.run_probe([response])
+        self.assertEqual(r['hops'][0]['retry_after'], ['5', '8'])
+
     def test_relative_redirect_and_limit(self):
         r = self.run_probe([Response(302, headers={'Location': '/next'}), Response()])
         self.assertTrue(r['ok'])

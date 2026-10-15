@@ -1,0 +1,32 @@
+{
+  "test_suites": [
+    {
+      "command": "python3 -B -m unittest discover -s line-1/tools/retry-lens -v",
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s line-1/tools/endpoint-sentry -v",
+      "passed": 19,
+      "failed": 0
+    }
+  ],
+  "live_probe": {
+    "url": "https://api.imd.fun/launches",
+    "ok": true,
+    "status": 200,
+    "retry_after": [],
+    "saved": "tools/retry-lens/observed-live.json"
+  },
+  "offline_live_demo": "absent",
+  "offline_synthetic_demo": {
+    "outcome": "hint_pending",
+    "remaining_seconds": 45
+  },
+  "goal_unchanged": true,
+  "older_records_unchanged": true,
+  "record_number": 30,
+  "new_files_outside_artifacts_under_100000_bytes": true,
+  "wall_sha256": "eb628d3a4e76d089f0ba114ca26ddc311e0d4f9cd34cc737d0df88db8f2d3a51",
+  "named_output_left_untracked": true
+}

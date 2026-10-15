@@ -133,6 +133,8 @@ def probe(url, timeout=10.0, max_bytes=1048576, max_redirects=3,
                 hop = {'url': current, 'status': response.status,
                        'request_sent_at': request_sent_at,
                        'headers_received_at': received_at,
+                       'retry_after': [value for key, value in response.getheaders()
+                                       if key.lower() == 'retry-after'],
                        'cache_headers': [[key.lower(), value] for key, value in response.getheaders()
                                          if key.lower() in CACHE_HEADERS],
                        'headers_ms': round((time.monotonic() - hop_start) * 1000, 3),
